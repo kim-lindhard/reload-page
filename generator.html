@@ -18,18 +18,19 @@
     <h2>Reload pages without blinking</h2>
     <p>Need to reload a page without blinking, third party proxies and cookies?</p>
 
-    <p>Seconds between refresh: <input type="text" id="secondsBetweenRefreshInput" onchange="javascript:updateCodeBox();"
-            value="30"></p>
+    <p>Seconds between refresh: <input type="text" id="secondsBetweenRefreshInput" value="30"></p>
     <code id="codeBox">
-    javascript: (function () { setTimeout(function(){ $("#widgets-container").load(window.location.href + "#widgets-container")}, 3000); }());
-</code>
+        javascript: (function () { setTimeout(function(){ $("#widgets-container").load(window.location.href + "#widgets-container")}, 3000); }());
+    </code>
+    <script src="scripts/generator.js"></script>
     <script type="text/javascript">
-        function updateCodeBox(secondsBetweenRefresh) {
-            codeBox.innerHTML = 'I am hit with ' + secondsBetweenRefresh;
-        }
-
-        secondsBetweenRefreshInput.addEventListener("input", function (e) {
-            updateCodeBox(this.value);
+        secondsBetweenRefreshInput.addEventListener("input", function () {
+            generateRefreshScript(
+                this.value,
+                function (innerHTML) {
+                    codeBox.innerHTML = innerHTML;
+                }
+            );
         });
     </script>
 </body>
